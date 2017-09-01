@@ -27,6 +27,9 @@ public class Caller  {
     public static String SEND_MESSAGE_URL = "http://222.190.120.106:9064/dxfs/sendMessage.api";//suzhou  http://219.83.163.147:8099/hospital/
     public static String MESSAGE_VERI_URL = "http://222.190.120.106:9064/dxfs/messageVerification.api";//suzhou  http://219.83.163.147:8099/hospital/
 
+    //baidu  Address
+    public static String BAIDU_GEOCODER = "http://api.map.baidu.com/geocoder";//suzhou  http://219.83.163.147:8099/hospital/
+
 
     /**
      * 注册

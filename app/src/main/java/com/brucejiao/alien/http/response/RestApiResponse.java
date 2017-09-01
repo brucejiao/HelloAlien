@@ -1,7 +1,8 @@
-package com.brucejiao.alien.http;
+package com.brucejiao.alien.http.response;
 
 /**
- * Created by tiansj on 2016/11/30.
+ * @author  brucejiao
+ * 接口通用格式
  */
 
 public class RestApiResponse {

@@ -1,6 +1,5 @@
 package com.brucejiao.alien.http;
 
-import android.app.Activity;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -9,9 +8,9 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.brucejiao.alien.R;
 import com.brucejiao.alien.common.AppContext;
-import com.brucejiao.alien.utils.LogUtil;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -88,12 +87,12 @@ public class HttpClient {
      * @param param
      * @param handler
      */
-    public static void get(Activity activity,String url, Map<String, String> param, final HttpResponseHandler handler) {
-        if (!isNetworkAvailable()) {
+    public static void get(String url, Map<String, String> param, final HttpResponseHandler handler) {
+//        if (!isNetworkAvailable()) {
 //            Toast.makeText(AppContext.getInstance(), R.string.no_network_connection_toast, Toast.LENGTH_SHORT).show();
-            LogUtil.d("HttpClient","请连接网络后重试");
-            return;
-        }
+//            LogUtil.d("HttpClient","请连接网络后重试");
+//            return;
+//        }
         if(!url.contains("?")  && param != null && param.size() > 0) {
             url = url + "?" + mapToQueryString(param);
         }else if(url.contains("?")  && param != null && param.size() > 0){
@@ -104,7 +103,8 @@ public class HttpClient {
             @Override
             public void onResponse(Call call, Response response) {
                 try {
-                    RestApiResponse apiResponse = getRestApiResponse(response.body().string());
+//                    RestApiResponse apiResponse = getRestApiResponse(response.body().string());
+                    JSONObject apiResponse = getRestApiResponse(response.body().string());
                     handler.sendSuccessMessage(apiResponse);
                 } catch (Exception e) {
                     handler.sendFailureMessage(call.request(), e);
@@ -140,7 +140,8 @@ public class HttpClient {
             @Override
             public void onResponse(Call call, Response response) {
                 try {
-                    RestApiResponse apiResponse = getRestApiResponse(response.body().string());
+//                    RestApiResponse apiResponse = getRestApiResponse(response.body().string());
+                    JSONObject apiResponse = getRestApiResponse(response.body().string());
                     handler.sendSuccessMessage(apiResponse);
                 } catch (Exception e) {
                     handler.sendFailureMessage(call.request(), e);
@@ -183,7 +184,8 @@ public class HttpClient {
             @Override
             public void onResponse(Call call, Response response) {
                 try {
-                    RestApiResponse apiResponse = getRestApiResponse(response.body().string());
+//                    RestApiResponse apiResponse = getRestApiResponse(response.body().string());
+                    JSONObject apiResponse = getRestApiResponse(response.body().string());
                     handler.sendSuccessMessage(apiResponse);
                 } catch (Exception e) {
                     handler.sendFailureMessage(call.request(), e);
@@ -201,11 +203,20 @@ public class HttpClient {
 
 
 
-    private static RestApiResponse getRestApiResponse(String responseBody) throws Exception {
+/*    private static RestApiResponse getRestApiResponse(String responseBody) throws Exception {
         if(!isJsonString(responseBody)) {
             throw new Exception("server response not json string (response = " + responseBody + ")");
         }
         RestApiResponse apiResponse = JSON.parseObject(responseBody, RestApiResponse.class);
+
+        return apiResponse;
+    }*/
+
+    private static JSONObject getRestApiResponse(String responseBody) throws Exception {
+        if(!isJsonString(responseBody)) {
+            throw new Exception("server response not json string (response = " + responseBody + ")");
+        }
+        JSONObject apiResponse = JSON.parseObject(responseBody, JSONObject.class);
 
         return apiResponse;
     }

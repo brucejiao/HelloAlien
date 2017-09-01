@@ -21,7 +21,11 @@ package com.brucejiao.alien.http;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+
+import com.alibaba.fastjson.JSONObject;
+
 import okhttp3.Request;
+
 public class HttpResponseHandler {
     protected static final int SUCCESS_MESSAGE = 0;
     protected static final int FAILURE_MESSAGE = 1;
@@ -50,9 +54,9 @@ public class HttpResponseHandler {
     /**
      * Fired when a request returns successfully, override to handle in your own code
      *
-     * @param response the body of the HTTP RESTApi response from the server
+     * @param  object the body of the HTTP RESTApi response from the server
      */
-    public void onSuccess(RestApiResponse response) {
+    public void onSuccess(JSONObject object) {//RestApiResponse response
     }
 
     /**
@@ -68,9 +72,9 @@ public class HttpResponseHandler {
     // 后台线程调用方法，通过Handler sendMessage把结果转到UI主线程
     //
 
-    protected void sendSuccessMessage(RestApiResponse response) {
+    protected void sendSuccessMessage(JSONObject object) {//RestApiResponse response
         try {
-            sendMessage(obtainMessage(SUCCESS_MESSAGE, response));
+            sendMessage(obtainMessage(SUCCESS_MESSAGE, object));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -84,8 +88,8 @@ public class HttpResponseHandler {
     // Pre-processing of messages (in original calling thread, typically the UI thread)
     //
 
-    protected void handleSuccessMessage(RestApiResponse response) {
-        onSuccess(response);
+    protected void handleSuccessMessage(JSONObject object) {//RestApiResponse response
+        onSuccess(object);
     }
 
     protected void handleFailureMessage(Request request, Exception e) {
@@ -97,7 +101,7 @@ public class HttpResponseHandler {
     protected void handleMessage(Message msg) {
         switch (msg.what) {
             case SUCCESS_MESSAGE:
-                handleSuccessMessage((RestApiResponse) msg.obj);
+                handleSuccessMessage((JSONObject) msg.obj);//RestApiResponse
                 break;
             case FAILURE_MESSAGE:
                 Object[] response = (Object[]) msg.obj;
