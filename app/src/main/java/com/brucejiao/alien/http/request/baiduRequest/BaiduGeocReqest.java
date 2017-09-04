@@ -1,15 +1,13 @@
 package com.brucejiao.alien.http.request.baiduRequest;
 
 import com.alibaba.fastjson.JSONObject;
-import com.brucejiao.alien.R;
 import com.brucejiao.alien.dointerface.IAddressModel;
 import com.brucejiao.alien.http.Caller;
 import com.brucejiao.alien.http.HttpClient;
 import com.brucejiao.alien.http.HttpResponseHandler;
 import com.brucejiao.alien.http.response.baiduGeocoResp.BaiduGeoResp;
 import com.brucejiao.alien.http.response.baiduGeocoResp.GeoeResult;
-import com.brucejiao.alien.page.activity.MainActivity;
-import com.tapadoo.alerter.Alerter;
+import com.brucejiao.alien.page.fragment.firstFragment.FirstFragment;
 
 import java.util.HashMap;
 
@@ -22,7 +20,7 @@ import okhttp3.Request;
 public class BaiduGeocReqest {
     private static IAddressModel mIAddressModel;
 
-    public static void initData(HashMap<String, String> params,final MainActivity activity){
+    public static void initData(HashMap<String, String> params,final FirstFragment activity){
         mIAddressModel = activity;
         HttpClient.get(Caller.BAIDU_GEOCODER,params, new HttpResponseHandler() {
             @Override
@@ -34,10 +32,10 @@ public class BaiduGeocReqest {
                 String formatAddress = baiduGeoResult.getFormatted_address();
                 mIAddressModel.setProgress(true);
                 mIAddressModel.setValue(formatAddress);
-                Alerter.create(activity)
-                        .setText(formatAddress)
-                        .setBackgroundColorRes(R.color.green)
-                        .show();
+//                Alerter.create(activity)
+//                        .setText(formatAddress)
+//                        .setBackgroundColorRes(R.color.green)
+//                        .show();
             }
             @Override
             public void onFailure(Request request, Exception e) {
