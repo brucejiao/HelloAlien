@@ -19,7 +19,7 @@ import java.util.HashMap;
 public class BaseActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener {
 
     private BaseActivity mContext;
-    public static final int DEFAULT_COLOR = Color.parseColor("#319bd2");
+    public static final int DEFAULT_COLOR = Color.parseColor("#2E4980");
 
     public static final int PAGE_COMMON = 0;
     public static final int PAGE_TRANSLUCENT = 1;
