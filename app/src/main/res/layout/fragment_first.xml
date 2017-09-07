@@ -166,10 +166,11 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@color/colorBackground"
+        android:background="@drawable/navbg"
         android:fitsSystemWindows="false"
         app:headerLayout="@layout/nav_header"
         app:insetForeground="#00000000"
+        app:itemTextColor="@color/white"
         app:menu="@menu/drawer_view" />
 
 </android.support.v4.widget.DrawerLayout>
